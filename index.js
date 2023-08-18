@@ -1,3 +1,13 @@
-const MyMath = require('./utils/MyMath'); 
+const http = require('http'); 
+const PORT = 5000;
 
-console.log(MyMath);
+const requestListener = (req, res) => {
+    /* const {url, method} = req;
+    console.log(url, method); */
+    res.statusCode = 404;
+    res.end('Hello from server');
+}
+
+const server = http.createServer(requestListener);
+
+server.listen(PORT);
