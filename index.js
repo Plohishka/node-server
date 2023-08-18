@@ -1,16 +1,20 @@
-const http = require('http'); 
-const fs = require('fs/promises'); 
+const http = require('http');
+const fs = require('fs/promises');
 
 const PORT = 5000;
 
-const requestListener = (req, res) => {
-    const {url} = req;
+const requestListener = async (req, res) => {
+    const { url } = req;
 
     if (url === '/index.html') {
-        fs.readFile('./views/index.html', 'utf-8')
-        .then((data) => {
+        try {
+            const data = await fs.readFile('./views/index.html', 'utf-8');
+            res.statusCode = 200;
             res.end(data);
-        })
+        } catch (error) {
+            res.statusCode = 404;
+            res.end(error.message);
+        }
     } else {
         res.statusCode = 404;
         res.end();
