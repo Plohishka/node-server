@@ -1,26 +1,12 @@
-const http = require('http');
-const fs = require('fs/promises');
+const express = require('express');
+const app = express();
 
 const PORT = 5000;
 
-const requestListener = async (req, res) => {
-    const { url } = req;
+app.get('/', (req, res) => {
+    res.send('Hello world')
+})
 
-    if (url === '/index.html') {
-        try {
-            const data = await fs.readFile('./views/index.html', 'utf-8');
-            res.statusCode = 200;
-            res.end(data);
-        } catch (error) {
-            res.statusCode = 404;
-            res.end(error.message);
-        }
-    } else {
-        res.statusCode = 404;
-        res.end();
-    }
-}
-
-const server = http.createServer(requestListener);
-
-server.listen(PORT);
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+})
