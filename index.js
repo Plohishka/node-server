@@ -13,6 +13,7 @@ const UserController = require('./controllers/UserController');
 app.post('/user', bodyParser, validateUser, UserController.createUser);
 app.get('/users', UserController.getAllUsers);
 app.get('/user/:userId', UserController.getOneUser);
+app.delete('/user/:userId', UserController.deleteSomeUser);
 
 
 app.listen(PORT, () => {
