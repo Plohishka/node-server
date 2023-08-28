@@ -32,3 +32,15 @@ module.exports.deleteSomeUser = (req, res) => {
         res.status(404).end();
     }
 }
+
+module.exports.updateUser = (req, res) => {
+    const { body, params: { userId } } = req;
+    const user = User.findOne(Number(userId));
+
+    if (user) {
+        user.updateUser(body);
+        res.status(200).end();
+    } else {
+        res.status(404).end();
+    }
+}
